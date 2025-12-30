@@ -724,6 +724,9 @@ func (p *OAuthProxy) OAuthStart(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	callbackRedirect := p.getOAuthRedirectURI(req)
+	if strings.Contains(callbackRedirect, "/en/") {
+		appRedirect = "/en"
+	}
 	loginURL := p.provider.GetLoginURL(
 		callbackRedirect,
 		encodeState(csrf.HashOAuthState(), appRedirect),
